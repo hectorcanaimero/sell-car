@@ -20,6 +20,9 @@ export class User {
   @Prop()
   password: string;
 
+  @Prop()
+  workspace: string;
+
   @Prop({ default: true })
   status: boolean;
 }

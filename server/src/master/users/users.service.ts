@@ -30,6 +30,10 @@ export class UsersService {
     return this.model.findOne({ email });
   }
 
+  async findByWorkspace(workspace: string): Promise<User> {
+    return this.model.findOne({ workspace });
+  }
+
   update(id: string, item: UpdateUserDto) {
     return this.model
       .findByIdAndUpdate({ _id: id }, { $set: item }, { new: true })
