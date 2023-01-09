@@ -9,13 +9,13 @@ import { TypeVehiclesModule } from './type-vehicles/type-vehicles.module';
 
 @Module({
   imports: [
+    TypeVehiclesModule,
+    BrandsModule,
     SacsModule,
     LeadsModule,
-    BrandsModule,
     ModelsModule,
     ConfigsModule,
     VehiclesModule,
-    TypeVehiclesModule,
   ],
 })
 export class TenancyModule {}
