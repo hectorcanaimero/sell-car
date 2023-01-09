@@ -1,0 +1,4 @@
+mongo/*
+redis/*
+kafka/*
+app

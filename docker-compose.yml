@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: ./app/Dockerfile
+    ports:
+      - 4200:4200
+    volumes:
+      - ./app:/usr/app
+    networks:
+      - sellCar-net
+
+  server:
+    container_name: server
+    build:
+      context: .
+      dockerfile: ./server/Dockerfile
+    ports:
+      - 3010:3000
+    volumes:
+      - ./server:/usr/app
+    depends_on:
+      - db
+    networks:
+      - sellCar-net
+
+  db:
+    image: mongo:6.0.2
+    container_name: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
+      MONGO_INITDB_DATABASE: ${MONGO_DB}
+    volumes:
+      - ./mongo/data:/data/db
+      - ./mongo:/docker-entrypoint-initdb.d
+    networks:
+      - sellCar-net
+
+  mongo_client:
+    image: mongo-express
+    container_name: mongo-client
+    restart: always
+    ports:
+      - 3011:8081
+    environment:
+      ME_CONFIG_MONGODB_SERVER: db
+      ME_CONFIG_MONGODB_AUTH_USERNAME: ${MONGO_CLI_USER}
+      ME_CONFIG_MONGODB_AUTH_PASSWORD: ${MONGO_CLI_PASS}
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_USER}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_PASS}
+    depends_on:
+      - db
+    networks:
+      - sellCar-net
+
+  redis:
+    container_name: redis
+    image: redis
+    restart: always
+    hostname: redis
+    command: redis-server
+    volumes:
+    - ./redis/data:/data
+    networks:
+      - sellCar-net
+
+  redis_client:
+    hostname: redis-commander
+    container_name: redis-client
+    image: rediscommander/redis-commander:latest
+    restart: always
+    environment:
+      HTTP_USER: ${REDIS_HTTP_USER}
+      HTTP_PASSWORD: ${REDIS_HTTP_PASSWORD}
+      REDIS_HOST: redis
+      REDIS_HOSTS: redis
+      REDIS_PORT: redis:6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    ports:
+    - 3012:8081
+    depends_on:
+      - redis
+    networks:
+      - sellCar-net
+
+networks:
+  sellCar-net:
+    driver: bridge
