@@ -27,7 +27,7 @@ export class UsersService {
   }
 
   async findByEmail(email: string): Promise<User> {
-    return this.model.findOne({ email }).select('-password');
+    return this.model.findOne({ email });
   }
 
   update(id: string, item: UpdateUserDto) {

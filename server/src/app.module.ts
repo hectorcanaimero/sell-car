@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { CoreModule } from '@core/core.module';
 import { AppController } from './app.controller';
 import { MasterModule } from '@master/master.module';
+import { TenancyModule } from '@tenancy/tenancy.module';
 import { MongooseConfigService } from '@core/database/mongo-config.service';
 
 @Module({
@@ -20,6 +21,7 @@ import { MongooseConfigService } from '@core/database/mongo-config.service';
     // }),
     CoreModule,
     MasterModule,
+    TenancyModule,
   ],
   controllers: [AppController],
   providers: [AppService, MongooseConfigService],

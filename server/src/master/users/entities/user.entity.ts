@@ -22,7 +22,6 @@ export class User {
 
   @Prop({ default: true })
   status: boolean;
-  private _id: any;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
