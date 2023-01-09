@@ -17,7 +17,7 @@
 
 1. Type
    * Entity [name]
-   * [ ] CRUD
+   * [x] CRUD
 2. Brands
    * Entity [name, type]
    * [ ] CRUD

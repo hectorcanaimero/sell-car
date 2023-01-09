@@ -8,6 +8,6 @@ import { MongooseConfigService } from './mongo-config.service';
       useClass: MongooseConfigService,
     }),
   ],
-  providers: [],
+  providers: [MongooseConfigService],
 })
 export class DatabaseModule {}
