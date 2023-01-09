@@ -11,9 +11,9 @@ import { TypeVehiclesModule } from './type-vehicles/type-vehicles.module';
   imports: [
     TypeVehiclesModule,
     BrandsModule,
+    ModelsModule,
     SacsModule,
     LeadsModule,
-    ModelsModule,
     ConfigsModule,
     VehiclesModule,
   ],

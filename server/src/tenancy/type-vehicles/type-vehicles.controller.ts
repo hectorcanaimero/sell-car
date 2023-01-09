@@ -10,8 +10,10 @@ import {
 import { TypeVehiclesService } from './type-vehicles.service';
 import { CreateTypeVehicleDto } from './dto/create-type-vehicle.dto';
 import { UpdateTypeVehicleDto } from './dto/update-type-vehicle.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('type-vehicles')
+@ApiTags('type-vehicles')
 export class TypeVehiclesController {
   constructor(private readonly typeVehiclesService: TypeVehiclesService) {}
 

@@ -1,26 +1,37 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Brand, BrandDocument } from '@tenancy/brands/entities/brand.entity';
+import { Model } from 'mongoose';
 import { CreateBrandDto } from './dto/create-brand.dto';
 import { UpdateBrandDto } from './dto/update-brand.dto';
 
 @Injectable()
 export class BrandsService {
-  create(createBrandDto: CreateBrandDto) {
-    return 'This action adds a new brand';
+  constructor(@InjectModel(Brand.name) private model: Model<BrandDocument>) {}
+
+  // TODO Create USer
+  async create(item: CreateBrandDto): Promise<Brand> {
+    const create = new this.model(item);
+    return create.save();
   }
 
-  findAll() {
-    return `This action returns all brands`;
+  async findAll(): Promise<Brand[]> {
+    return this.model.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} brand`;
+  async findOne(id: string): Promise<Brand> {
+    return this.model.findById(id);
   }
 
-  update(id: number, updateBrandDto: UpdateBrandDto) {
-    return `This action updates a #${id} brand`;
+  async update(id: string, item: UpdateBrandDto): Promise<Brand> {
+    return this.model.findByIdAndUpdate(
+      { _id: id },
+      { $set: item },
+      { new: true },
+    );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} brand`;
+  async remove(id: string): Promise<void> {
+    await this.model.remove({ _id: id });
   }
 }

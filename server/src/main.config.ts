@@ -24,7 +24,6 @@ export class MainConfig {
         'Documentation interface and use of API in general of sell Car.',
       )
       .setVersion('1.0')
-      .addTag('cats')
       .build();
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('docs', app, document);
