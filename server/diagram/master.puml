@@ -1,0 +1,50 @@
+@startuml Master Module
+
+class Users {
+  _id: String
+  firstName: String
+  lastName: String
+  email String
+  phone: String
+  _id: Object(Id)
+  createUser()
+  updateUser()
+  getProfile()
+  forgotPassword()
+}
+
+class Type_Vehicles {
+  _id: String
+  name: String
+  _id: Object(Id)
+  create()
+  read()
+  update()
+  delete()
+}
+
+class Brands {
+  _id: String
+  name: String
+  typeVehicle: String
+  _id: Object(Id)
+  typeVehicle: Object(Type_Vehicles)
+  create()
+  read()
+  update()
+  delete()
+}
+
+class Models {
+  _id: String
+  name: String
+  brand: String
+  _id: Object(Id)
+  brand: Object(Brands)
+  create()
+  read()
+  update()
+  delete()
+}
+
+@enduml
